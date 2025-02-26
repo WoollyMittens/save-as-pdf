@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Save as PDF</title>
+	<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width" />
+	<style>
+		body {
+			font-family: sans-serif;
+			padding: 2rem;
+			margin: 0;
+		}
+		* {
+			box-sizing: border-box;
+		}
+        .example-products {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+
+            li {
+                margin: 0;
+                padding: 1rem;
+                border: solid 1px #333;
+            }
+
+            img {
+                aspect-ratio: 4/3;
+                object-fit: cover;
+                width: 100%;
+                height: auto;
+            }
+        }
+	</style>
+    <script type="module">
+        class PrintWishlist {
+            constructor(cfg) {
+                this.cfg = cfg;
+                // configure the PDF library
+                this.options = {
+                    margin: 1,
+                    filename: 'my-document.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { dpi: 300, scale: 2, useCORS: true },
+                    jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' },
+                    useCORS: true
+                };
+                // create an iframe for the PDF conversion
+                this.iframe = document.createElement("iframe");
+                this.iframe.style.cssText = "position: absolute; visibility: hidden; width: 100%; height: 33vh; left: 0; top: 0;";
+                const contentWindow = this.iframe.contentWindow;
+                this.iframe.setAttribute('srcdoc', cfg.template.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\n|\t/g, ''));
+                document.body.appendChild(this.iframe);
+            }
+            
+            print() {
+                // connect to the iframe document
+                const container = document.querySelector(this.cfg.container);
+                const buffer = this.iframe.contentWindow;
+                // clear the wishlist
+                const wishlist = buffer.document.querySelector('#wishlist');
+                wishlist.innerHTML = '';
+                // copy the wishlist into the iframe
+                const clone = container.cloneNode(true);
+                wishlist.appendChild(clone);
+                // call the print command from within the iframe
+                buffer.html2pdf().set(this.options).from(buffer.document.body).save();
+            }
+        }
+
+        window.printWishlist = new PrintWishlist({
+            'container': '.example-products',
+            'template': `
+                &lt;html&gt;
+                    &lt;head&gt;
+                        &lt;script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"&gt;&lt;/script&gt;
+                        &lt;style&gt;
+                            body {
+                                font-family: sans-serif;
+                                padding: 2rem;
+                                margin: 0;
+                            }
+                            * {
+                                box-sizing: border-box;
+                            }
+                            .example-products {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                display: grid;
+                                grid-template-columns: 1fr 1fr 1fr;
+                                gap: 2rem;
+
+                                li {
+                                    margin: 0;
+                                    padding: 1rem;
+                                    border: solid 1px #333;
+                                }
+
+                                img {
+                                    aspect-ratio: 4/3;
+                                    object-fit: cover;
+                                    width: 100%;
+                                    height: auto;
+                                }
+                            }
+                        &lt;/style&gt;
+                    &lt;body&gt;
+                        &lt;h1&gt;Lorem ipsum&lt;/h1&gt;
+                        &lt;section id="wishlist"&gt;&lt;/section&gt;
+                    &lt;/body>
+                &lt;/html&gt;
+            `
+        });
+    </script>
+</head>
+
+<body>
+
+    <p>
+        <button onclick="window.printWishlist.print(); return false;">Save as PDF</button>
+    </p>
+    
+    <ul class="example-products">
+        <li>
+            <img alt="" src="./crp_windgod_displayed.jpg"/>
+            <h2>Lorem Ipsum</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+        </li>
+        <li>
+            <img alt="" src="./dcs_9009_displayed.jpg"/>
+            <h2>Lorem Ipsum</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+        </li>
+        <li>
+            <img alt="" src="./dcs_midnight_displayed.jpg"/>
+            <h2>Lorem Ipsum</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+        </li>
+    </ul>
+
+</body>
+
+</html>
