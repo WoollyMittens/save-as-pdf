@@ -5,3 +5,9 @@
 ## Example
 
 https://woollymittens.github.io/save-as-pdf/index.html
+
+## Prerequisites
+
+### html2pdf.js
+
+https://ekoopmans.github.io/html2pdf.js/
