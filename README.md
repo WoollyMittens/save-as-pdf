@@ -6,7 +6,7 @@
 
 https://woollymittens.github.io/save-as-pdf/index.html
 
-## Prerequisites
+## Dependencies
 
 ### html2pdf.js
 

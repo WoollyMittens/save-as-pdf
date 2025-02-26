@@ -18,7 +18,7 @@
             margin: 0;
             padding: 0;
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 2rem;
 
             li {
@@ -78,34 +78,11 @@
                     &lt;head&gt;
                         &lt;script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"&gt;&lt;/script&gt;
                         &lt;style&gt;
-                            body {
-                                font-family: sans-serif;
-                                padding: 2rem;
-                                margin: 0;
-                            }
-                            * {
-                                box-sizing: border-box;
-                            }
-                            .example-products {
-                                list-style-type: none;
-                                margin: 0;
-                                padding: 0;
-                                display: grid;
-                                grid-template-columns: 1fr 1fr 1fr;
-                                gap: 2rem;
-
-                                li {
-                                    margin: 0;
-                                    padding: 1rem;
-                                    border: solid 1px #333;
-                                }
-
-                                img {
-                                    aspect-ratio: 4/3;
-                                    object-fit: cover;
-                                    width: 100%;
-                                    height: auto;
-                                }
+                            body { font-family: sans-serif; padding: 2rem; margin: 0; }
+                            * { box-sizing: border-box; }
+                            .example-products { list-style-type: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+                                li { margin: 0; padding: 1rem; border: dashed 2px #c00; }
+                                img { aspect-ratio: 4/3; object-fit: cover; width: 100%; height: auto; }
                             }
                         &lt;/style&gt;
                     &lt;body&gt;
@@ -137,6 +114,11 @@
         </li>
         <li>
             <img alt="" src="./dcs_midnight_displayed.jpg"/>
+            <h2>Lorem Ipsum</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+        </li>
+        <li>
+            <img alt="" src="./21kb_classic_displayed.jpg"/>
             <h2>Lorem Ipsum</h2>
             <p>Lorem ipsum dolor sit amet.</p>
         </li>
